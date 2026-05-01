@@ -3,10 +3,16 @@
   "configurations": [
     {
       "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "App",
+      "projectName": "final-project-Akwaen_5e97578a"
+    },
+    {
+      "type": "java",
       "name": "Run Main",
       "request": "launch",
-      "mainClass": "Main",
-      "projectName": "${workspaceFolderBasename}"
+      "mainClass": "Main"
     }
   ]
 }

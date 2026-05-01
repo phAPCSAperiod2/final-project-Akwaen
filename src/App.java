@@ -1,44 +1,55 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Step 1: Get project goal
-        System.out.println("Enter your project goal:");
-        String goal = scanner.nextLine();
+        System.out.print("What's your name? ");
+        String name = scanner.nextLine();
 
-        // Step 2: Number of tasks
-        System.out.println("How many tasks do you want to add?");
-        int numTasks = scanner.nextInt();
-        scanner.nextLine(); // clear buffer
+        System.out.print("How old are you? ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
 
-        // Arrays to store tasks and times
-        String[] tasks = new String[numTasks];
-        int[] times = new int[numTasks];
-        int totalTime = 0;
+        System.out.print("Enter your project title: ");
+        String title = scanner.nextLine();
 
-        // Step 3: Input tasks and times
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println("\nEnter task " + (i + 1) + ":");
-            tasks[i] = scanner.nextLine();
+        ProjectManager pm = new ProjectManager(name, age, title);
 
-            System.out.println("Enter time (in minutes):");
-            times[i] = scanner.nextInt();
-            scanner.nextLine(); // clear buffer
-
-            totalTime += times[i];
+        // Collect ideas
+        System.out.println("\nEnter your ideas (type 'done' to finish):");
+        while (true) {
+            String ideaText = scanner.nextLine();
+            if (ideaText.equalsIgnoreCase("done")) break;
+            pm.addIdea(new Idea(ideaText));
         }
 
-        // Step 4: Output results
-        System.out.println("\n--- Project Summary ---");
-        System.out.println("Goal: " + goal);
-
-        for (int i = 0; i < numTasks; i++) {
-            System.out.println(tasks[i] + " - " + times[i] + " minutes");
+        // Show ideas
+        System.out.println("\nYour ideas:");
+        List<Idea> ideas = pm.getAllIdeas();
+        for (int i = 0; i < ideas.size(); i++) {
+            System.out.println(i + ": " + ideas.get(i).getDescription());
         }
 
-        System.out.println("Total time: " + totalTime + " minutes");
+        // Select ideas
+        System.out.println("\nSelect ideas by index (type -1 to stop):");
+        while (true) {
+            int choice = scanner.nextInt();
+            if (choice == -1) break;
+            pm.selectIdea(choice);
+        }
+
+        // Assign durations
+        scanner.nextLine();
+        for (Idea idea : pm.getSelectedIdeas()) {
+            System.out.print("How many days for \"" + idea.getDescription() + "\"? ");
+            int days = scanner.nextInt();
+            idea.setDuration(days);
+        }
+
+        // Generate schedule
+        Schedule.generateSchedule(pm.getSelectedIdeas());
 
         scanner.close();
     }
