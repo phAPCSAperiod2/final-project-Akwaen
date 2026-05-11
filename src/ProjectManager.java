@@ -37,4 +37,10 @@ public class ProjectManager {
     public String getProjectTitle() {
         return projectTitle;
     }
+    public String getuserName() {
+        return userName;
+    }
+    public int getAge() {
+        return age;
+    }
 }
