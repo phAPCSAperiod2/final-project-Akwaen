@@ -21,8 +21,7 @@ public class App {
         System.out.println("\nEnter your ideas (type 'done' to finish):");
         while (true) {
             String ideaText = scanner.nextLine();
-            if (ideaText.equalsIgnoreCase("done"))
-                break;
+            if (ideaText.equalsIgnoreCase("done")) break;
             pm.addIdea(new Idea(ideaText));
         }
 
@@ -36,10 +35,8 @@ public class App {
         // Select ideas
         System.out.println("\nSelect ideas by index (type -1 to stop):");
         while (true) {
-            System.out.print("Enter idea index: ");
             int choice = scanner.nextInt();
-            if (choice == -1)
-                break;
+            if (choice == -1) break;
             pm.selectIdea(choice);
         }
 
